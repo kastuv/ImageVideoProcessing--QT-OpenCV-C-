@@ -1,8 +1,19 @@
 import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
 
 Window {
-    width: 640
-    height: 480
+    width: 1024
+    height: 720
     visible: true
-    title: qsTr("ImageVideoProcessing APP")
+    color: "#222222"
+    title: qsTr("ImageViewer")
+
+    StackView
+    {
+        id: loader
+        anchors.fill:parent
+        initialItem: "qrc:/ImageVideoProcess/Home.qml"
+    }
+
 }
