@@ -20,6 +20,7 @@ qt_add_qml_module(appImageVideoProcess
     QML_FILES showImage.qml
     QML_FILES showVideo.qml
     RESOURCES resources.qrc
+    WorkFLow.txt
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

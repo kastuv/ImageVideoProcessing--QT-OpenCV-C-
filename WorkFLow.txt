@@ -1,0 +1,20 @@
+
+//Concept to understand before understanding the codebase;
+(signalsandslots)
+https://doc.qt.io/qt-6/signalsandslots.html
+- In General: connect(sender, &Sender::signalName, receiver, &Receiver::slotName);
+
+//Check out this Class for QT before going the codebase;
+(QtQuickPaintedItem)
+https://doc.qt.io/qt-6/qquickpainteditem.html
+- In General: We use this to paint Images on QML
+
+
+//Image is stored in a MAT
+# Mat is where image pixels are stored in a MATRIX form as a data.
+
+
+How the process is working;
+- Loading the image into MAT
+- The data placed as a MATRIX, we load every position of matrix data into QImage
+- We redraw the Image from data, by using QquickPaintedItem in QML
