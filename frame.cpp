@@ -25,9 +25,13 @@ void Frame::setFrame(const QImage &newFrame)
 
 void Frame::openImage(QString url)
 {
+    qDebug() << "Test: Attempting to open image: 1" << url;
     url.remove("file://");
-    rawFrame =cv::imread(url.toStdString());
+    qDebug() << "Test: Attempting to open image: 2" << url;
+    rawFrame = cv::imread(url.toStdString());
+    qDebug() << "Test: Attempting to open image: 3" << url;
     convert2QImage();
+    qDebug() << "Test: Attempting to open image: 4" << url;
 }
 
 /**

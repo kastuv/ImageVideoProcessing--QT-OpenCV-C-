@@ -1,11 +1,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <frame.h>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    qmlRegisterType <Frame> ("com.app.frame", 1, 0, "Frame");
     const QUrl url(u"qrc:/ImageVideoProcess/main.qml"_qs);
     QObject::connect(
         &engine,

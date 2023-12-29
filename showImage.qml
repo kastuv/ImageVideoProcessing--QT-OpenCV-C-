@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import com.app.frame
+import Qt.labs.platform
 
 Page {
     //anchors.fill: parent
@@ -45,6 +47,14 @@ Page {
                 Layout.preferredHeight: imageContainer.height
                 fillMode: Image.PreserveAspectFit
             }
+
+            Frame
+            {
+                id: selectedImage
+                Layout.preferredWidth: imageContainer.width
+                Layout.preferredHeight: imageContainer.height
+                visible: false
+            }
         }
 
         RowLayout
@@ -59,12 +69,26 @@ Page {
             {
                 text: "Open Image"
                 Layout.preferredWidth: parent.width * 0.4
+                onClicked: imageDialog.open()
             }
             Button
             {
                 text: "Go Back"
                 Layout.preferredWidth: parent.width * 0.4
                 onClicked: loader.pop()
+            }
+        }
+
+        FileDialog
+        {
+            id: imageDialog
+            title: "Choose Image"
+            folder: '/Users/kaustuvpokharel/Documents'
+            onAccepted:
+            {
+                selectedImage.openImage(imageDialog.url);
+                picture.visible = false;
+                selectedImage.visible = true;
             }
         }
 
