@@ -8,6 +8,7 @@ cv::Mat Frame::getRawFrame() const
 void Frame::setRawFrame(const cv::Mat &newRawFrame)
 {
     rawFrame = newRawFrame;
+    convert2QImage();
 }
 
 QImage Frame::getFrame() const
@@ -18,6 +19,15 @@ QImage Frame::getFrame() const
 void Frame::setFrame(const QImage &newFrame)
 {
     frame = newFrame;
+    Frame::update();
+    emit(frameChanged());
+}
+
+void Frame::openImage(QString url)
+{
+    url.remove("file://");
+    rawFrame =cv::imread(url.toStdString());
+    convert2QImage();
 }
 
 /**
@@ -42,7 +52,6 @@ void Frame::convert2QImage()
     frame = tempImage;
         //Detach the QImage from the shared data, ensuring it has its own deep copy of the pixel data
     frame.detach();
-    frame.detach();
     Frame::update();
     emit(frameChanged());
 }
@@ -53,7 +62,21 @@ Frame::Frame(QQuickItem *parent) : QQuickPaintedItem(parent)
 
 }
 
+/**
+ * @brief Paint the scaled version of the frame onto the provided QPainter.
+ *
+ * This function performs the following steps:
+ * 1. Creates a scaled version of the frame image with a size of 640x480 pixels.
+ * 2. Draws the entire scaled image onto the specified QPainter at the top-left corner (0, 0).
+ * 3. Uses fast image transformation and automatic color conversion during drawing.
+ *
+ * @param parent The QPainter to paint on.
+ */
 void Frame::paint(QPainter *parent)
 {
-
+    QImage scaledFrame;
+    //scales the frame, with valid image data
+    scaledFrame = frame.scaled(640, 480, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    //redraws the new image onto the oainter from (scaledFrame) with automatic color
+    parent->drawImage(0,0,scaledFrame, 0, 0, -1, -1, Qt::AutoColor);
 }
